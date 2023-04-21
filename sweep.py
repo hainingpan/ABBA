@@ -16,14 +16,16 @@ def main(args):
     U0_list = np.linspace(*args.U0[:2], int(args.U0[-1]))
     U1_list = np.linspace(*args.U1[:2], int(args.U1[-1]))
     results = {}
-
+    total_num=args.t1[2]*args.t2[2]*args.U0[2]*args.U1[2]
+    count=0
     for t1_idx, t1 in enumerate(t1_list):
         for t2_idx, t2 in enumerate(t2_list):
             for U0_idx, U0 in enumerate(U0_list):
                 for U1_idx, U1 in enumerate(U1_list):
-                    print(f"Current iteration: t1={t1}, t2={t2}, U0={U0}, U1={U1}",flush=True)
+                    count+=1
+                    print(f"Current iteration: t1={t1}, t2={t2}, U0={U0}, U1={U1}. {count}/{total_num}",flush=True)
                     params = Params(t=[0, t1, t2], U=[U0, U1], h=args.h, nu=args.nu, n=args.n,hartree=args.hartree,fock=args.fock)
-                    gap_list, energy_list, spin_list, ave = params.iteration(print_opt='m', thres=args.thres)
+                    gap_list, energy_list, spin_list, ave = params.iteration(print_opt='o', thres=args.thres)
                     spin_mat = params._generate_spin_mat(ave)
                     spin = []
                     for i in range(4):

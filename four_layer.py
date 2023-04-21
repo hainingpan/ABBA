@@ -1,3 +1,7 @@
+import pandas as pd
+import numpy as np
+data_lattice=pd.read_csv('lattice_exp.csv',delimiter=' ',)
+data_lattice=data_lattice.set_index('Angstrom')
 class Params:
     def __init__(self,a=data_lattice['WSe2']['a'],m=1.2, theta=3, Tm=157,Tp_0=389,Tp_1=-1,V1=-89.6,V2_0=-83.3,V2_1=-1,phi2=-0.758,Ez=0,Nmax=2,n=15,B=0):
         self.m=m
