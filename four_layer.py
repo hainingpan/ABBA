@@ -6,6 +6,10 @@ path_B = Path('/mnt/d/Cornell/ABBA/lattice_exp.csv')
 path= path_A if path_A.exists() else path_B
 data_lattice=pd.read_csv(path,delimiter=' ',)
 data_lattice=data_lattice.set_index('Angstrom')
+
+def convert_params(x):
+    return {'V1':x[0]*1e3,'V2_0':x[1]*1e3,'V2_1':x[2]*1e3,'phi2':x[3],'Tm':x[4]*1e3,'Tp_0':x[5]*1e3,'Tp_1':x[6]*1e3,}
+    
 class Params:
     def __init__(self,a=data_lattice['WSe2']['a'],m=1.2, theta=3, Tm=157,Tp_0=389,Tp_1=-1,V1=-89.6,V2_0=-83.3,V2_1=-1,phi2=-0.758,Ez=0,Nmax=2,n=15,B=0):
         self.m=m
