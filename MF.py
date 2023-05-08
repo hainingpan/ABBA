@@ -26,6 +26,7 @@ class Params:
         self.expkk =self._generate_expkk() # n,k1,k2
         self.sigma=_generate_pauli_matrix()
         self.print_info()
+        
 
     # Checked
     def _generate_neighbor(self):
@@ -83,19 +84,18 @@ class Params:
         print(f'Energy resolution: {resolution}',flush=True)
 
     def _generate_ansatz(self):
-        # if self.nu==[-4,-2]:
-        #     # Charge modulation
-        #     self.ai_index=np.array([[0,0],[1,0],[2,0]])
-        #     self.spinA0=[[2,0,0,0],[2,0,0,0],[2,0,0,0]]
-        #     self.spinB0=[[0,0,0,0],[0,0,0,0],[0,0,0,0]]
-        #     self.am_index=np.array([[1,1],[2,-1]])
-        #     self.q_index=np.array([[0,0],[-2/3,-1/3],[2/3,1/3]])
-            # self.q_index=np.array([[0,0],[1/3,2/3],[2/3,1/3]])
+        if self.nu==[-6,-3]:
+            # Charge modulation
+            self.ai_index=np.array([[0,0],[1,0],[2,0]])
+            self.spinA0=[[1,0,0,0],[1,0,0,0],[1,0,0,0]]
+            self.spinB0=[[1,0,0,0],[1,0,0,0],[1,0,0,0]]
+            self.am_index=np.array([[1,1],[2,-1]])
+            self.q_index=np.array([[0,0],[2/3,1/3],[-2/3,-1/3]])
         if self.nu==[-4,-2]:
             # Charge modulation
             self.ai_index=np.array([[0,0]])
-            self.spinA0=[[2,0,0,0]]
-            self.spinB0=[[0,0,0,0]]
+            self.spinA0=[[1,0,0,0]]
+            self.spinB0=[[1,0,0,0]]
             self.am_index=np.eye(2) 
             self.q_index=np.array([[0,0]])
         if self.nu==[-2,-1]:
@@ -176,7 +176,21 @@ class Params:
             self.q_index=np.array([[0,0],[2/3,1/3],[-2/3,-1/3]])
             # self.O_max=np.array([[0,0],[160,0]])
             self.O_max=np.array([[0,160],[160,0]])
-            self.l=np.ones((2,2))
+            # self.l=np.ones((2,2))
+            self.l=np.array([[0,1],[1,0]])
+
+        # if self.nu==[-18,-9]:
+        #     # Intervalley p wave
+        #     self.ai_index=np.array([[0,0],[1,0],[2,0]])
+        #     # self.spinA0=[[1,1,0,0],[1,1,0,0],[1,1,0,0]]
+        #     # self.spinB0=[[1,-1,0,0],[1,-1,0,0],[1,-1,0,0]]
+        #     self.am_index=np.array([[1,1],[2,-1]])
+        #     # self.q_index=np.array([[0,0],[1/3,2/3],[2/3,1/3]])
+        #     self.q_index=np.array([[0,0],[2/3,1/3],[-2/3,-1/3]])
+        #     # self.O_max=np.array([[0,0],[160,0]])
+        #     self.O_max=np.array([[0,160],[160,0]])
+        #     # self.l=np.ones((2,2))
+        #     self.l=np.array([[0,1],[-1,0]])
 
         if self.nu==[6,3]:
             # SDW 120 Neel
@@ -581,7 +595,7 @@ class Params:
                 spin_diag=np.diag(spin_texture)
                 assert np.abs(spin_diag.imag).max()<1e-10, f"spin is not real for {spin_idx} with {spin_diag}"
                 spin_str=' '.join([f'{spin:.4f}' for spin in spin_diag.real])
-                print(f'S{spin_idx}: {spin_str}')
+                print(f'S{spin_idx}: {spin_str}',flush=True)
                 spin_list[spin_idx]=spin_diag.real
             if 'b' in output:
                 # bond
