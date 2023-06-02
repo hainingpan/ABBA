@@ -62,7 +62,7 @@ class Params:
         self.Vb4mat=self._V(h1matX-h1matY,h2matX-h2matY,layer=4)
         self.high_symm=self._generate_high_symm()
         mu_B,g=5.78e-5,2
-        self.Vz=g*mu_B*B*1e3
+        self.Vz=1/2*g*mu_B*B*1e3
 
     def _generate_high_symm(self):
         K_=(self.bM1+2*self.bM2)/3
